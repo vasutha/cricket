@@ -1,0 +1,37 @@
+<h4> Over Details </h4>
+<div class="table table-responsive">
+<% @overs.each do |over| %>
+<table class="table table-bordered">
+		<strong>Bowler Name:</strong> <%= over.player.player_name  %> </br>
+		<strong> Over Id: </strong> <%= over.id %> </br>
+		<strong> Over count: </strong> <%=over.count%> </br>
+		<strong><%= link_to "Add balls" , newballs_path(:over => over)%> </strong> </br>
+		<thead>
+			<tr>
+				<th> Batsman </th>
+				<th> Over Id</th>
+				<th> Four </th>
+				<th> Six </th>
+				<th> No Ball </th>
+				<th> Wides </th>
+				<th> Wicket </th>
+				<th> Runs </th>
+			</tr>
+		</thead>
+		<% over.balls.each do |b|%>
+			<tbody>
+				<tr>
+					<td> <%= b.player.player_name %> </td>	
+					<td> <%= over.id%></td>
+					<td> <%= b.four %> </td>
+					<td> <%= b.six %> </td>
+					<td> <%= b.nb %> </td>
+					<td> <%= b.wides %> </td>
+					<td> <%= b.wicket %> </td>
+					<td> <%= b.runs %> </td>			
+				</tr>
+			</tbody>
+		<% end %>	
+</table>
+	<% end %>
+</div>

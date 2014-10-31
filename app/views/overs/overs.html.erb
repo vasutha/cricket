@@ -1,0 +1,81 @@
+<div class="cricket-example">
+    <div class= "panel-group" id="accordionOver">
+        <div class= "panel panel-default" >
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionOver" href="#collapseOnever
+                    ">Over Details</a>
+                </h4>
+            </div>
+            <div id="collapseOneOver" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="">
+                    <p>
+                        <strong> The bowling team will be: <%= @bowl_team.team_name %> </strong></br>
+                        <%= form_for @over, :url => {:action => "create"} do |o| %>
+                        <div class="span3">
+                             <%=o.label "Select player(bowler)" %>
+                             <%= o.collection_select(:player_id, @players_bowling, :id, :player_name, :include_blank => "Select player") %>
+                             <%= o.hidden_field :team_id ,:value => @bowl_teamid %>
+                             <%= o.hidden_field :match_id ,:value => @match_id %>
+                        </div>
+                         </p>
+                        <div class="span3">
+                            <%= o.label "Over count"%>
+                            <%= o.text_field :count ,:value=> @over_count ,:readonly => true%>
+                        </div>
+                    <div class="">
+                    <%=o.fields_for :balls do |builder| %>
+                            <%= builder.hidden_field :match_id ,:value => @match_id %>
+                            <div class="span3">
+                                <%= builder.label "ballcount" %>
+                                <%= builder.text_field :ballcount ,:value => '1' ,:readonly => true %>
+                            </div>
+                            <div class="span3">
+                                 <%= builder.label "Fours" %>
+                                 <%= builder.check_box :four , {:checked => true} %>
+                            </div>
+                              <div class="span3">
+                                    <%= builder.label "Sixes" %>
+                                    <%= builder.check_box :six , {:checked => true} %>
+                                </div>
+                                <div class="span3">
+                                    <%= builder.label "No ball" %>
+                                    <%= builder.check_box :nb , {:checked => false}%>
+                                </div>
+                                <div class="span3">
+                                    <%= builder.label "Wides" %>
+                                    <%= builder.check_box :wides , {:checked => false} %>                                  
+                                </div>
+                                <div class="span3">
+                                    <%= builder.label "Wickets" %>
+                                    <%= builder.check_box :wicket , {:checked => false} %>   
+                                </div>
+                                <div class="span3">
+                                    <%= builder.label "Runs" %>
+                                    <%= builder.text_field :runs%>
+                                </div>
+                                <div class="span3">
+                                    <%=builder.label "Select player(batsman)" %>
+                                    <%= builder.collection_select(:player_id, @players_batting, :id, :player_name, :include_blank => "Select player") %>
+                                </div>
+                        <%end %>
+                        </div>
+                                <div style="float:right">
+                                    <%= o.submit "Over and balls" , :class=>"btn btn-primary" %>
+                                    <%= link_to "view overs" , newshow_path%>
+                                </div>
+                    </div> 
+                </div>
+            </div>
+            
+        </div>
+         <% if flash[:error] %>
+                <div class="alert alert-error">
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                  <strong><%= flash[:error] %></strong>
+                </div>
+            <% end %>
+    </div>
+    <%end %>
+</div>

@@ -1,0 +1,64 @@
+<div class="cricket-example">
+    <div class= "panel-group" id="ball-accordion">
+        <div class= "panel panel-default" >
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#ball-accordion" href="#collapseOneBall">Ball Details</a>
+                </h4>
+            </div>
+            <div id="collapseOneBall" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class=""> 
+                        <%= form_for @ball, :url => {:action => "create"} do |b| %>
+                                <%= b.hidden_field :over_id , :value => @over %>
+                                <%= b.hidden_field :match_id , :value => @over_details.match_id %>
+
+                                <div class="span3">
+                                    <%= b.label "ball count"%>
+                                    <%= b.text_field :ballcount , :value=> @ball_count ,:readonly => true%>
+                                </div>
+                               <div class="span3">
+                                    <%= b.label "Fours" %>
+                                    <%= b.check_box :four , {:checked => true} %>
+                              </div>
+                              <div class="span3">
+                                    <%= b.label "Sixes" %>
+                                   <%= b.check_box :six , {:checked => true} %>
+                                </div>
+                                <div class="span3">
+                                    <%= b.label "No ball" %>
+                                     <%= b.check_box :nb , {:checked => false}%>
+                                </div>
+                                <div class="span3">
+                                    <%= b.label "Wides" %>
+                                    <%= b.check_box :wides , {:checked => false} %>     
+                                </div>
+                                <div class="span3">
+                                    <%= b.label "Wickets" %>
+                                    <%= b.check_box :wicket , {:checked => false} %>   
+                                </div>
+                                <div class="span3">
+                                    <%= b.label "Runs" %>
+                                    <%= b.text_field :runs%>
+                                </div>
+                                <div class="span3">
+                                    <%=b.label "Select player(batsman)" %>
+                                    <%= b.collection_select(:player_id, @players_batting, :id, :player_name, :include_blank => "Select player") %>
+                                </div>
+                                <div style="float:right">
+                                    <%= b.submit "Shots" , :class=>"btn btn-primary" %> 
+                                </div>
+                    </div> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <% if flash[:error] %>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="alert"></button>
+          <strong><%= flash[:error] %></strong>
+        </div>
+        <% end %>
+    <%end%>
+</div>

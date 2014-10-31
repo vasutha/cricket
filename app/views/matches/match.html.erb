@@ -1,0 +1,43 @@
+<div class="cricket-example">
+	<div class= "panel-group" id="match-accordion">
+		<div class= "panel panel-default" >
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#match-accordion" href="#collapseOne">Match Details</a>
+				</h4>
+			</div>
+			<div id="collapseOneMatch" class="panel-collapse collapse in">
+                <div class="panel-body">
+                	<div class="">
+                    <%= form_for @match, :url => {:action => "create"} do |m| %>
+                    	<%= m.hidden_field :team1 , :value=>@teamsselect[0].id%>
+                    	<%= m.hidden_field :team2 , :value =>@teamsselect[1].id%>
+                    	<div>
+							<p><strong> The match is between team1: <i><%=@teamsselect[0].team_name %> </i> and team2: <i> <%=@teamsselect[1].team_name %> </i></strong> </p>
+						</div>
+						<div class="span3">
+						<%= m.label "Toss won" %>
+						<%= m.select :toss_won, "<option></option>".html_safe<<options_for_select([[@teamsselect[0].team_name,@teamsselect[0].id],[@teamsselect[1].team_name,@teamsselect[1].id]], :selected => @teamsselect[0].id) %>
+						</div>
+						<div class="span3">
+						<%= m.label "Batting First" %>
+						<%= m.select :bat_first, "<option></option>".html_safe<<options_for_select([[@teamsselect[0].team_name,@teamsselect[0].id],[@teamsselect[1].team_name,@teamsselect[1].id]], :selected => @teamsselect[0].id) %>
+						</div>
+						<div class="span3">
+						<%= m.label "Date" %>
+						<%= m.text_field :date%>
+						</div>
+						<div class="span3">
+						<%= m.label "Place" %>
+						<%= m.text_field :place %>
+						</div>
+						<div class="" style="float:right;">
+						<%= m.submit "Start Match" , :class => "btn btn-primary match-submit" %>
+						</div>
+					<%end%>
+                	</div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

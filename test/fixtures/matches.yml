@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  team1: 1
+  team2: 1
+  bat_first: 1
+  date: 2014-10-16 15:20:26
+  mom: MyString
+  place: MyString
+  team_won: 1
+  toss_won: 1
+
+two:
+  team1: 1
+  team2: 1
+  bat_first: 1
+  date: 2014-10-16 15:20:26
+  mom: MyString
+  place: MyString
+  team_won: 1
+  toss_won: 1

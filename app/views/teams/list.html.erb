@@ -1,0 +1,24 @@
+<h4> Team Details</h4>
+<%= form_tag newmatches_path do %>
+<table class ="table table-bordered">
+<thead>
+	<tr>
+		<th>Row</th>
+		<th>Team Name</th>
+	</tr>
+</thead>
+<% for team in @teams%>
+<tbody>
+	<tr>
+		<td> <%= check_box_tag "teams_checkbox[]" , team.id %> </td>
+		<td> <%=h team.team_name %> </td>
+	</tr>
+</tbody>
+<% end %>
+</table>
+<div style="float:right">
+	<%= link_to 'Match Details', matcheslist_path %>
+	<%= link_to 'Back to team', addteam_path %>
+	<%= submit_tag "toss coin", :class => "btn btn-primary" %>
+</div>
+<% end %>

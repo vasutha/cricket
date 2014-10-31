@@ -1,0 +1,29 @@
+<h4> Match Details </h4>
+<div class="table-responsive">
+<table class="table table-bordered">
+<thead>
+	<tr>
+		<th>Match between the teams</th>
+		<th>Batting First</th>
+		<th>Toss Won</th>
+		<th>Date</th>
+		<th>Place</th>
+		<th>Match</th>
+	</tr>
+</thead>
+<% @matches.each do |match| %>
+<tbody>
+	<tr>
+		<td><%=Team.find(match.team1).team_name%> and <%=Team.find(match.team2).team_name%></td>
+		<td><%=Team.find(match.bat_first).team_name%></td>
+		<td><%=Team.find(match.toss_won).team_name%></td>
+		<td><%=match.date%></td>
+		<td><%=match.place%></td>
+		<td><%= link_to "start match" , newovers_path(match_id: match.id)%></td>
+		<td><%= link_to "resume match" , newovers_path(match_id: match.id, overs: @overs)%></td>
+	</tr>
+</tbody>
+<% end %>
+</table>
+<%= link_to "View Scores" , scorecard_path%>
+</div>

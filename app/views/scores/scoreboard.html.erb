@@ -1,0 +1,82 @@
+<div class="table-responsive" style="margin:20px">
+<table class="table table-bordered">
+<thead>
+	<tr>
+		<th>First innings</th>
+		<th>Runs</th>
+		<th>4s</th>
+		<th>6s</th>
+		<th>Balls</th>
+		<th> </th>
+	</tr>
+</thead>
+<tbody>
+		<% @ball_runs.each do |runs| %>
+			<tr>
+			<td> <%= Player.find(runs.player_id).player_name%> </td>
+			<td> <%= runs.runs.floor %></td>
+			<td> <% if @fours[runs.player_id].nil? %> 0 <% else %> <%= @fours[runs.player_id] %> <%end%></td>
+			<td> <% if @sixes[runs.player_id].nil? %> 0 <% else %> <%= @sixes[runs.player_id] %> <%end%> </td>
+			<td> <%= @balls[runs.player_id] %> </td>
+			<td> <% if Batting.where(player_id: runs.player_id , match_id: @match_id).first%> <%= Batting.where(player_id: runs.player_id , match_id: @match_id).first.dismissed_by%> <% else %> Not out <% end %></td>
+			</tr>
+		<%end%>
+</tbody>
+</table>
+<div style= "margin:20px;">
+	<strong> Extras: (nb: <%=@nb%>;wides: <%=@wides %>)</strong>
+	<strong> Total runs: <%=@total_runs.runs.floor %>/ <%= @wkts_count%></strong>
+	<div align="right"><%= link_to "Back to Scores" , scorecard_path%></div>
+</div>
+</div>
+<div style= "margin:20px;">
+	<p><b><i><u>Players yet to play/not played </u></i></b></p>
+	<% @players_to_play.each do |p| %>
+			<strong><%=p.player_name %> </strong>
+	<% end %>
+</div>
+<div style= "margin:20px;">
+	<p><b><i><u>Fall of wickets </u></i></b></p>
+	<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Runs</th>
+			<th>Player</th>
+			<th>Bowled by</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @wickets_array.each do |w|%>
+			<tr>
+			<td><%=w["runs"] %> </td>
+			<td> <%=w["player"] %> </td>
+			<td> <%=w["bowled"] %></td>
+			</tr>
+		<%end%>
+	</tbody>
+	</table>
+</div>
+<div style="margin:20px;">
+	<p><b><i><u>Bowling: </u></i></b></p>
+	<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>First Innings</th>
+			<th>Overs</th>
+			<th>Wickets</th>
+			<th>Runs</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @bowl_arr.each do |a|%>
+			<tr>
+			<td><%=a["player"] %> </td>
+			<td> <%=a["count"] %> </td>
+			<td> <%=a["wicket"] %></td>
+			<td> <%=a["runs"] %></td>
+			</tr>
+		<%end%>
+	</tbody>
+	</table>
+</div>
+

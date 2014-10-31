@@ -1,0 +1,19 @@
+<h4 align="center"> Score Board </h4>
+<style type="text/css">
+	.list-group{
+		width: 400px;
+	}
+	.scores{
+		margin: 20px;
+	}
+</style>
+<div class="scores">
+	<h5> List of matches</h5>
+	<ul class="list-group"></ul>
+	<% @matches.each do |match| %>
+	<li class="list-group-item"><strong> <%= Team.find(match.team1).team_name%> and <%=Team.find(match.team2).team_name%> at <%=match.place%> - <%=match.date%></strong> &nbsp; &nbsp;
+	 <strong><i><%= link_to "scorecard" , newscores_path(match_id: match.id)%></i></strong> &nbsp;
+	 <strong><i><%= link_to "resume match" , newovers_path(match_id: match.id)%></i></strong>
+	</li>
+	<%end%>
+</div>

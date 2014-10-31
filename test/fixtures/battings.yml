@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  team_id: 1
+  player_id: 1
+  match_id: 1
+  dismissal_type: MyString
+  dismissed_by: MyString
+  order: MyString
+
+two:
+  team_id: 1
+  player_id: 1
+  match_id: 1
+  dismissal_type: MyString
+  dismissed_by: MyString
+  order: MyString

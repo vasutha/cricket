@@ -1,0 +1,58 @@
+<div class="cricket-example">
+	<div class= "panel-group" id="accordion">
+		<div class= "panel panel-default" >
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Team Details</a>
+				</h4>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                	<div class="">
+                    <%= form_for @team, :url => {:action => "create"} do |t| %>
+                    		<%= t.label "Enter team name"%>
+                    		<%= t.text_field :team_name%>
+                	</div>
+                </div>
+            </div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Player Details</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                	<div class="">
+                		<div class= "row">
+              			<%=t.fields_for :players do |builder| %>
+              					<div class="span3">
+	              				<%= builder.label :player_name, "Player Name" %>
+	              				<%= builder.text_field :player_name %>
+	              				</div>
+              			<%end%> 
+              			</div> 
+              		</div>    
+                </div>
+            </div>
+        </div>
+	</div>
+  <% if flash[:error] %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert"></button>
+      <strong><%= flash[:error] %></strong>
+    </div>
+  <% end %>
+
+  <% if flash[:success] %>
+   <div class="alert alert-success">
+     <strong> <%= flash[:success]%></strong>
+   </div>
+  <% end %>
+	<div style="float:right">
+        <%= link_to 'View Teams', newteams_path(:teams => @teams) %>
+		<%= t.submit "Next" , :class=>"btn btn-primary" %> 
+	</div>
+  	<%end%>
+</div>
