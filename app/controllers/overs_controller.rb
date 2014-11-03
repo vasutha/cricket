@@ -1,7 +1,7 @@
 class OversController < ApplicationController
   def overs
   	@match_id = params[:match_id]
-    @oversall = params[:overs]
+    #@oversall = params[:overs]
     @overs = Over.find(:all)
   	@match = Match.find(@match_id)
   	if(@match.team1 == @match.bat_first)
@@ -10,29 +10,32 @@ class OversController < ApplicationController
   		@bowl_teamid = @match.team1
   	end 
   	@bowl_team = Team.find(@bowl_teamid)
+
+    #populate players under batting and bowling
   	@players_bowling = Player.where(team_id: @bowl_teamid ).select('id,player_name')
   	@players_batting = Player.where(team_id: @match.bat_first ).select('id,player_name')
+
+    #retrieve details from batting table and remove them from current players list
     @batting_players = Batting.where("team_id = ? AND match_id = ?", @match.bat_first , @match_id).select('player_id')
     @team_detail = Team.find(@match.bat_first)
-
     if(@batting_players !=nil && @batting_players.size > 0)
       @players_batting = @team_detail.players.all(:include => :battings).reject! {|player| player.battings.present?} 
     end
-     p "dmshfkjsdhfjk"
-    p @players_batting.size
-
     if(@players_batting.size <= 0 )
        @teams = Team.find(:all)
        render :template => 'teams/list'  
     end
+
+    #auto-populate over values after each over
     @over_last = Over.find(:last)
     if(@over_last != nil)
       @over_count =  @over_last.count.to_i + 1
     else
       @over_count = 1
     end
-  	@over = Over.new
 
+    #object creation for overs and ball
+  	@over = Over.new
   	@over.balls.build
   end
 
@@ -69,14 +72,14 @@ class OversController < ApplicationController
     #check for wickets and add to the batting team
     if(@ball.wicket == true)
         #add details to the batting team
-        @batting = Batting.new
-        @batting.player_id =  @ball.player_id
-        @batting.match_id = @ball.match_id
-        @player_team_id = Player.where(id: @ball.player_id).select('team_id')
-        @batting.team_id =  @player_team_id[0].team_id
-        @player = Player.find(@over.player_id)
-        @batting.dismissed_by = @player.player_name
-        if(@batting.save!)
+        batting = Batting.new
+        batting.player_id =  @ball.player_id
+        batting.match_id = @ball.match_id
+        player_team_id = Player.where(id: @ball.player_id).select('team_id')
+        batting.team_id =  player_team_id[0].team_id
+        player = Player.find(@over.player_id)
+        batting.dismissed_by = player.player_name
+        if(batting.save!)
           flash[:success] = "Wicket lost" 
         end
     end
@@ -95,8 +98,8 @@ class OversController < ApplicationController
     else
   		flash[:notice] = "Successfully started the overs"
   		@match_id = @over.match_id
-  		@overid = @over.id
-      @ball = Ball.find(:last)
+  		#@overid = @over.id
+      #@ball = Ball.find(:last)
       @overs = Over.find(:all)
   		render :action => 'show' 
   	end

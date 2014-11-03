@@ -16,8 +16,8 @@ class BattingsController < ApplicationController
   def create
   	@batting = Batting.new
   	@batting.order = params[:order]
-	@batting.player_id = params[:player_id]
-	@batting.team_id = params[:team_id]  	
+	 @batting.player_id = params[:player_id]
+	  @batting.team_id = params[:team_id]  	
   	# @batting.match_id = 
   	p "oder..."
   	p @batting.inspect

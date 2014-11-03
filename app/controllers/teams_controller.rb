@@ -9,7 +9,6 @@ class TeamsController < ApplicationController
   end
   def create
   	@team = Team.new(params[:team])
-    save = @team.save
   	unless @team.save
       flash[:error] = "Invalid details. Either the team or player name is empty"
       redirect_to :action => 'new'	

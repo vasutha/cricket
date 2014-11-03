@@ -1,6 +1,5 @@
 class MatchesController < ApplicationController
   def list
-    p "in list!!!!!"
     @matches = Match.find(:all)
   end
   def match
@@ -13,7 +12,7 @@ class MatchesController < ApplicationController
 	@match = Match.new(params[:match])
   	if @match.save!
   		flash[:notice] = "Successfully started the match"
-  		@match_id = @match.id
+  		#@match_id = @match.id
       @matches = Match.find(:all)
       render :action=>'list'
   	else
